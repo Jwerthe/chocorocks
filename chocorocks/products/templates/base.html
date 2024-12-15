@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{% static 'images/logo.PNG' %}" />
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'products/css/styles.css' %}">
+    <script src="{% static 'products/js/script.js' %}" defer></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <div class="top-menu">
+        <a href="/">Inicio</a>
+        <a href="#">Productos</a>
+        <a href="#">Comprar</a>
+        <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
+      </div>
+      <div>
+        <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
+      </div>
+      <h1>ROCAS CRUJIENTES DE CHOCOLATE</h1>
+    </header>
+    {% block content %}{% endblock content %}
+    <!-- footer -->
+    <footer>
+      <div>
+        <div class="bottom-menu">
+          <h2>CHOCOROCKS</h2>
+          <div>
+            <a href="#">Comprar</a>
+            <a href="#">Productos</a>
+            <a href="#">Sobre Nosotros</a>
+          </div>
+        </div>
+        <div class="contacts">
+          <div>
+            <a href="#">Facebook <img src="#" alt="fb" /></a>
+            <a href="#">Instagram <img src="#" alt="ig" /></a>
+            <a href="#">WhatsApp <img src="#" alt="wsp" /></a>
+            <a href="#">Mail <img src="#" alt="email" /></a>
+          </div>
+          <div>
+            <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" />
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
