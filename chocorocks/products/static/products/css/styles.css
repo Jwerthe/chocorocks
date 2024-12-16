@@ -153,11 +153,19 @@ a  img {
 }
 
 /* content-index index */
-.content-index {
+.content-desc {
     text-align: center;
+    margin: 2em;
+    color: #F98E2B;
+}
+
+.content-index {
+    text-align: left;
     color: #3d1500;
-    margin: 10em;
+    margin: 5em;
     align-content: center;
+    /* background-color: #43221269;
+    border-radius: 20px; */
 }
 
 .carousel-container {
@@ -180,13 +188,13 @@ a  img {
     text-align: left;
     color: #F98E2B;
     font-weight: bold;
-    width: 18.55em;
+    width: 17.5em;
     max-height: 27em;
     margin-right: 1em;
 }
 
 .product p {
-    height: 2em;
+    height: 3em;
     width: 100%;
 }
 
@@ -197,7 +205,7 @@ a  img {
 
 .product img {
     height: 250px;
-    width: 95%;
+    width: 100%;
     border-radius: 20px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     object-fit: cover;
@@ -208,24 +216,20 @@ a  img {
     transform: scale(1.12);
 }
 
-.product button {
-    align-content: center;
-    background-color: #aa0050;
-    border-radius: 20px;
-    padding: 1em;
-    width: 100%;
-    border: 1px solid #aa0050;
+.product a{
+    text-decoration: none;
     color: #feeddd;
-    font-size: medium;
-    font-weight: bold;
-    /* transition: transform 0.3s ease-in-out; */
+    padding: 10px 100px;
+    background-color: #aa0050;
+    border: 2px solid #feeddd;  
+    border-radius: 20px;  
+    font-size: 1.1em;
 }
 
-.product button:hover {
+.product a:hover{
     background-color: #feeddd;
-    border: 1px solid #aa0050;
     color: #aa0050;
-    /* transform: scale(1.12); */
+    border: 2px solid #aa0050;
 }
   
 .carousel-btn {
@@ -252,6 +256,26 @@ a  img {
     color: #feeddd;
 }
   
+.content-index-2 {
+    background-color: #43221269;
+    margin: 5em;
+    height: auto;
+    width: auto;
+}
+
+.carousel-2{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.carousel-photos img {
+    height: 15em;
+    width: 15em;
+    object-fit: cover;
+}
+
 /* content-us about_us */
 .text-info { 
     padding: 5em;

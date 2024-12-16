@@ -1,6 +1,6 @@
 from django import forms
 from django.db import connection 
-from .models import Product
+from .models import Product, Post
 from django.core.exceptions import ValidationError
 
 class ProductForm(forms.ModelForm):
@@ -19,4 +19,18 @@ class ProductForm(forms.ModelForm):
             'price': 'Precio',
             'image': 'Imagen del Producto',
             'available': 'Disponibilidad',
+        }
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = '__all__'
+        widgets = {
+            'title':forms.TextInput(attrs={'class': 'form-control'}),
+            'description':forms.Textarea(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'title': 'Título',
+            'description': 'Descripción',
         }
