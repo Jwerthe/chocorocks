@@ -2,9 +2,30 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}CHOCOROCKS{% endblock title %}
-{% block content %}
+{% block content_1 %}
 <div class="content-index">
-    <h1>hola</h1>
+    <h2>PRODUCTOS</h2>
+    <div class="carousel-container">
+        <button class="carousel-btn prev-btn">&#8249;</button>
+        <div class="carousel">
+          {% for product in products %}
+                <div class="product">
+                <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <button href="{% url 'products:product' product.id %}">Ver más</button>    
+            </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-btn next-btn">&#8250;</button>
+    </div>
+</div>
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+<div>
+    <h1>adios</h1>
 </div>
 
-{% endblock content %}
+{% endblock content_2 %}
