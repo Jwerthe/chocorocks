@@ -22,7 +22,9 @@
 <div class="content-us-2">
     <div class="posts-us">
         <div class="post">
-            <img src="{% static 'products/images/logo.PNG' %}" alt="">
+            {% for post in posts %}
+            <img src={{ post.image.url }} alt="{{ post.title }}"/>
+            {% endfor %}
         </div>
     </div>
 </div>
