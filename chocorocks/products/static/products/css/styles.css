@@ -92,7 +92,12 @@ footer .contacts a {
     font-size: 1.1em;
     display: flex;
     flex-flow: column wrap;
+    padding-left: 1em;
+}
 
+.img-icon {
+    height: 2em;
+    width: 2em;
 }
 
 footer img{

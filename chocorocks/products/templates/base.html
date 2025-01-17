@@ -45,16 +45,16 @@
           <h2>CHOCOROCKS</h2>
           <div>
             <a href="#">Comprar</a>
-            <a href="#">Productos</a>
+            <a href="{% url "products:list_product" %}">Productos</a>
             <a href="#">Sobre Nosotros</a>
           </div>
         </div>
         <div class="contacts">
           <div>
-            <a href="#">Facebook <img src="#" alt="fb" /></a>
-            <a href="#">Instagram <img src="#" alt="ig" /></a>
-            <a href="#">WhatsApp <img src="#" alt="wsp" /></a>
-            <a href="#">Mail <img src="#" alt="email" /></a>
+            <a href="https://www.facebook.com/chocorocksec">Facebook <img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
+            <a href="https://www.instagram.com/chocorocksec/">Instagram <img class="img-icon" src="{% static 'products/images/iicon.PNG' %}" alt="ig" /></a>
+            <a href="#">WhatsApp <img class="img-icon" src="{% static 'products/images/wicon.PNG' %}" alt="wsp" /></a>
+            <a>@: info.chocorock@gmail.com <img class="img-icon" src="{% static 'products/images/eicon.PNG' %}" alt="email" /></a>
           </div>
           <div>
             <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" />
