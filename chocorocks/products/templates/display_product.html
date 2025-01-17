@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Desc-Productos{% endblock title %}
+{% block content_1 %}
+
+<div class="product-description">
+    <div class="product-img">
+        <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
+        <div class="product-desc">
+            <h2>{{product.name}}</h2>
+            <p> {{product.complete_description}} </p>
+            <p><strong>Precio: </strong> {{product.price}} </p>
+            <p><strong>Estado: </strong> {{product.get_available_display}} </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+{% endblock content_2 %}

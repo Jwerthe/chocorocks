@@ -10,12 +10,14 @@ class ProductForm(forms.ModelForm):
         widgets = {
             'name':forms.TextInput(attrs={'class': 'form-control'}),
             'description':forms.Textarea(attrs={'class': 'form-control'}),
+            'complete_description':forms.Textarea(attrs={'class': 'form-control'}),
             'price':forms.NumberInput(attrs={'class': 'form-control'}),
             'available':forms.Select(attrs={'class': 'form-control-file'}),
         }
         labels = {
             'name': 'Nombre del Producto',
             'description': 'Descripción',
+            'complete_description': 'Descripción detallada',
             'price': 'Precio',
             'image': 'Imagen del Producto',
             'available': 'Disponibilidad',
