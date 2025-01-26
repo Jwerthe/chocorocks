@@ -36,3 +36,25 @@ class PostForm(forms.ModelForm):
             'title': 'Título',
             'description': 'Descripción',
         }
+
+class CheckoutForm(forms.Form):
+    name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Nombre completo'
+        })
+    )
+    phone = forms.CharField(
+        max_length=15,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Número de teléfono'
+        })
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Correo electrónico'
+        })
+    )

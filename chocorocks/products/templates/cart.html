@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Desc-Productos{% endblock title %}
+{% block content_1 %}
+
+<div class="cart-container">
+    <h2>Carrito de Compras</h2>
+    
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <h3>{{ item.name }}</h3>
+            <p>Cantidad: {{ item.quantity }}</p>
+            <p>Precio unitario: ${{ item.price }}</p>
+            <p>Subtotal: ${{ item.subtotal }}</p>
+        </div>
+        {% endfor %}
+        
+        <div class="cart-total">
+            <h3>Total: ${{ total }}</h3>
+            <a href="{% url 'products:checkout' %}" class="checkout-btn">Continuar con el pedido</a>
+        </div>
+    {% else %}
+        <p>Tu carrito está vacío</p>
+    {% endif %}
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+<div class="checkout-container">
+    <h2>Finalizar Pedido</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">Enviar pedido por WhatsApp</button>
+    </form>
+</div>
+
+{% endblock content_2 %}

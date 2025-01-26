@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Product, Post
+from .models import Product, Post, CartItem, Order
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from products.forms import ProductForm, PostForm
+from products.forms import ProductForm, PostForm, CheckoutForm
+from django.urls import reverse
+from urllib.parse import quote
 
 def index(request):
     products = Product.objects.all()
@@ -12,7 +14,18 @@ def index(request):
     return render(request, 'index.html', {'products': products, 'posts':posts})
 
 def about_us(request):
-    return render(request, 'about_us.html')
+    posts = Post.objects.order_by('title')
+    template = loader.get_template('about_us.html')
+    return HttpResponse(template.render({'posts': posts}, request))
+
+# def buy(request):
+#     products = Product.objects.order_by('name')
+#     template = loader.get_template('buy.html')
+#     return HttpResponse(template.render({'products': products}, request))
+
+def buy(request):
+    products = Product.objects.all()
+    return render(request, 'base.html', {'products': products})
 
 #Products
 def product(request, product_id):
@@ -41,3 +54,90 @@ def list_post(request):
     posts = Post.objects.order_by('title')
     template = loader.get_template('list_post.html')
     return HttpResponse(template.render({'posts': posts}, request))
+
+#Cart
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    quantity = int(request.POST.get('quantity', 1))
+    
+    cart = request.session.get('cart', {})
+    
+    # Si el producto ya está en el carrito, actualizar cantidad
+    if str(product_id) in cart:
+        cart[str(product_id)]['quantity'] += quantity
+    else:
+        cart[str(product_id)] = {
+            'quantity': quantity,
+            'name': product.name,
+            'price': str(product.price)
+        }
+    
+    request.session['cart'] = cart
+    return redirect('products:cart')
+
+def cart(request):
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+    
+    for product_id, item in cart.items():
+        subtotal = float(item['price']) * item['quantity']
+        cart_items.append({
+            'id': product_id,
+            'name': item['name'],
+            'quantity': item['quantity'],
+            'price': item['price'],
+            'subtotal': subtotal
+        })
+        total += subtotal
+    
+    return render(request, 'cart.html', {
+        'cart_items': cart_items,
+        'total': total
+    })
+
+
+#MSM
+def checkout(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('products:cart')
+        
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+            email = form.cleaned_data['email']
+            
+            # Crear mensaje para WhatsApp
+            cart_items = []
+            total = 0
+            
+            for item in cart.values():
+                subtotal = float(item['price']) * item['quantity']
+                cart_items.append(f"{item['quantity']}x {item['name']} - ${subtotal}")
+                total += subtotal
+            
+            items_text = '\n'.join(cart_items)
+            message = f"""
+Nuevo pedido de: {name}
+Teléfono: {phone}
+Email: {email}
+
+Productos:
+{items_text}
+
+Total: ${total}
+"""
+            # Aquí reemplaza NUMERO_ADMIN con el número real
+            whatsapp_url = f"https://wa.me/+593978757097?text={quote(message)}"
+            
+            # Limpiar carrito
+            request.session['cart'] = {}
+            
+            return redirect(whatsapp_url)
+    else:
+        form = CheckoutForm()
+    
+    return render(request, 'cart.html', {'form': form})

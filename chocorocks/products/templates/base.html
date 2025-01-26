@@ -21,7 +21,7 @@
       <div class="top-menu">
         <a href="/">Inicio</a>
         <a href="{% url "products:list_product" %}">Productos</a>
-        <a href="#">Comprar</a>
+        <a href="#" id="buyButton">Comprar</a>
         <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
       </div>
       <div>
@@ -44,9 +44,9 @@
         <div class="bottom-menu">
           <h2>CHOCOROCKS</h2>
           <div>
-            <a href="#">Comprar</a>
+            <a href="#" id="buyButton">Comprar</a>
             <a href="{% url "products:list_product" %}">Productos</a>
-            <a href="#">Sobre Nosotros</a>
+            <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
           </div>
         </div>
         <div class="contacts">
@@ -62,5 +62,52 @@
         </div>
       </div>
     </footer>
+
+    {% block content_3 %}{% endblock content_3 %}
+    <!-- Modal de Compra -->
+    <div id="buyModal" class="modal">
+      <div class="modal-content">
+          <!-- Botón de cerrar -->
+          <span class="close-modal">&times;</span>
+          
+          <div class="modal-grid">
+              <!-- Sección izquierda -->
+              <div class="product-selection">
+                  <div class="product-dropdown">
+                      <button class="dropdown-btn">Seleccionar Productos</button>
+                      <div class="dropdown-content">
+                          {% for product in products %}
+                          <div class="dropdown-item" 
+                              data-product-id="{{ product.id }}"
+                              data-product-name="{{ product.name }}"
+                              data-product-price="{{ product.price }}"
+                              data-product-image="{{ product.image.url }}">
+                              {{ product.name }}
+                          </div>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  
+                  <div id="selectedProduct" class="selected-product-card" style="display: none;">
+                      <img src="" alt="Producto seleccionado">
+                      <h3></h3>
+                      <form class="add-to-cart-form">
+                          {% csrf_token %}
+                          <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+                          <button type="submit" class="add-cart-btn">Agregar al carrito</button>
+                      </form>
+                  </div>
+              </div>
+              
+              <!-- Sección derecha - Carrito -->
+              <div id="cartContainer" class="cart-container">
+                  <h2>Carrito de Compras</h2>
+                  <div id="cartItems"></div>
+                  <div id="cartTotal"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+
   </body>
 </html>

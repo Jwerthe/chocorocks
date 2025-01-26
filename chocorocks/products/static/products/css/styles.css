@@ -451,3 +451,139 @@ a  img {
         max-height: 400px; 
     }
 }
+
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #feeddd;
+    margin: 5% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #aa0050;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+}
+
+/* Sección de selección de productos */
+.product-dropdown {
+    margin-bottom: 2em;
+}
+
+.dropdown-btn {
+    width: 100%;
+    padding: 1em;
+    background-color: #638c1cff;
+    color: #feeddd;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 0.5em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.dropdown-content.active {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 1em;
+    cursor: pointer;
+    color: #3d1500;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Tarjeta de producto seleccionado */
+.selected-product-card {
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.selected-product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.quantity-input {
+    width: 80px;
+    padding: 0.5em;
+    margin-right: 1em;
+}
+
+.add-cart-btn {
+    background-color: #aa0050;
+    color: #feeddd;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Carrito */
+.cart-container {
+    background-color: white;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cart-item {
+    border-bottom: 1px solid #eee;
+    padding: 1em 0;
+}
+
+.cart-total {
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 2px solid #eee;
+}
+
+.checkout-btn {
+    display: inline-block;
+    background-color: #638c1cff;
+    color: #feeddd;
+    padding: 1em 2em;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 1em;
+}

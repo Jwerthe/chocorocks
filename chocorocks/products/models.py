@@ -29,3 +29,19 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class CartItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
+
+class Order(models.Model):
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    email = models.EmailField()
+    items = models.ManyToManyField(CartItem)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    date_created = models.DateTimeField(auto_now_add=True)

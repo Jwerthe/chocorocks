@@ -20,4 +20,10 @@
 
 {% block content_2 %}
 
+<form method="post" action="{% url 'products:add_to_cart' product.id %}">
+    {% csrf_token %}
+    <input type="number" name="quantity" value="1" min="1">
+    <button type="submit">Agregar al carrito</button>
+</form>
+
 {% endblock content_2 %}
