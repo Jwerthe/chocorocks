@@ -13,18 +13,16 @@
 <div class="content-index">
     <h2>PRODUCTOS</h2>
     <div class="carousel-container">
-        <button class="carousel-btn prev-btn">&#8249;</button>
         <div class="carousel">
-          {% for product in products %}
+            {% for product in products %}
                 <div class="product">
-                <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
-                <h3>{{ product.name }}</h3>
-                <p>{{ product.description }}</p>
-                <a href="{% url 'products:product' product.id %}">Ver más</a>    
-            </div>
-          {% endfor %}
+                    <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <a href="{% url 'products:product' product.id %}">Ver más</a>
+                </div>
+            {% endfor %}
         </div>
-        <button class="carousel-btn next-btn">&#8250;</button>
     </div>
 </div>
 {% endblock content_1 %}
@@ -42,3 +40,7 @@
 </div>
 
 {% endblock content_2 %}
+
+{% block extra_js %}
+    <script src="{% static 'products/js/carousel.js' %}" defer></script>
+{% endblock %}

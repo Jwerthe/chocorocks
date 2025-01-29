@@ -184,10 +184,22 @@ a  img {
   
 .carousel {
     display: flex;
-    flex-wrap: nowrap;
-    transition: transform 0.3s ease-in-out;
-    width: max-content;
+    animation: scroll 40s linear infinite;
 }
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); 
+    }
+}
+
+.carousel:hover {
+    animation-play-state: paused;
+}
+
   
 .product {
     flex: 0 0 auto;
@@ -586,4 +598,42 @@ a  img {
     border-radius: 10px;
     text-decoration: none;
     margin-top: 1em;
+}
+
+#checkoutForm {
+    background-color: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #638c1cff;
+}
+
+.size-select {
+    width: 100%;
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.size-select:focus {
+    outline: none;
+    border-color: #638c1cff;
 }

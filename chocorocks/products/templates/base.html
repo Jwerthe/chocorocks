@@ -13,16 +13,16 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'products/css/styles.css' %}">
-    <script src="{% static 'products/js/script.js' %}" defer></script>
+    <script src="{% static 'products/js/modal.js' %}" defer></script>
   </head>
   <body>
     <!-- header -->
     <header>
       <div class="top-menu">
         <a href="/">Inicio</a>
+        <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
         <a href="{% url "products:list_product" %}">Productos</a>
         <a href="#" id="buyButton">Comprar</a>
-        <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
       </div>
       <div>
         <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
@@ -44,9 +44,9 @@
         <div class="bottom-menu">
           <h2>CHOCOROCKS</h2>
           <div>
-            <a href="#" id="buyButton">Comprar</a>
-            <a href="{% url "products:list_product" %}">Productos</a>
             <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
+            <a href="{% url "products:list_product" %}">Productos</a>
+            <a href="#" id="buyButton">Comprar</a>
           </div>
         </div>
         <div class="contacts">
@@ -63,7 +63,6 @@
       </div>
     </footer>
 
-    {% block content_3 %}{% endblock content_3 %}
     <!-- Modal de Compra -->
     <div id="buyModal" class="modal">
       <div class="modal-content">
@@ -89,14 +88,17 @@
                   </div>
                   
                   <div id="selectedProduct" class="selected-product-card" style="display: none;">
-                      <img src="" alt="Producto seleccionado">
-                      <h3></h3>
-                      <form class="add-to-cart-form">
-                          {% csrf_token %}
-                          <input type="number" name="quantity" value="1" min="1" class="quantity-input">
-                          <button type="submit" class="add-cart-btn">Agregar al carrito</button>
-                      </form>
-                  </div>
+                    <img src="" alt="Producto seleccionado">
+                    <h3></h3>
+                    <form class="add-to-cart-form">
+                        {% csrf_token %}
+                        <select class="size-select" required>
+                            <option value="">Seleccione un tamaño</option>
+                        </select>
+                        <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+                        <button type="submit" class="add-cart-btn">Agregar al carrito</button>
+                    </form>
+                </div>
               </div>
               
               <!-- Sección derecha - Carrito -->
@@ -105,9 +107,26 @@
                   <div id="cartItems"></div>
                   <div id="cartTotal"></div>
               </div>
+
+            <!-- Formulario de checkout -->
+              <div id="checkoutForm" style="display: none;">
+                <h2>Finalizar Pedido</h2>
+                <form id="orderForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Nombre completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="Número de teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <button type="submit" class="checkout-btn">Enviar pedido por WhatsApp</button>
+                </form>
+            </div>
           </div>
       </div>
     </div>
-
+    {% block extra_js %}{% endblock %}
   </body>
 </html>

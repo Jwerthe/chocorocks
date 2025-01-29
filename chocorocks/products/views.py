@@ -2,11 +2,26 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Product, Post, CartItem, Order
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.decorators import login_required
 from products.forms import ProductForm, PostForm, CheckoutForm
 from django.urls import reverse
 from urllib.parse import quote
+from django.http import JsonResponse
+
+def product_list_api(request):
+    products = Product.objects.all()
+    products_data = [{
+        'id': product.id,
+        'name': product.name,
+        'image': product.image.url if product.image else '',
+        'description': product.description,
+        'sizes': [{
+            'id': size.id,
+            'size': size.size,
+            'price': str(size.price)
+        } for size in product.sizes.all()]
+    } for product in products]
+    
+    return JsonResponse(products_data, safe=False)
 
 def index(request):
     products = Product.objects.all()
