@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clone = product.cloneNode(true);
             carousel.appendChild(clone);
         });
-
+ 
         // Manejo de eventos hover para cada producto
         const productElements = carousel.querySelectorAll('.product');
         if (productElements.length > 0) {
@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-
+ 
         // Función para reiniciar el carrusel si algo sale mal
         function resetCarousel() {
             if (carousel) {
                 carousel.style.animation = 'none';
-                carousel.offsetHeight; // Trigger reflow
-                carousel.style.animation = 'scroll 40s linear infinite';
+                carousel.offsetHeight; // Forzar reflow
+                carousel.style.animation = 'carousel 40s linear infinite';
             }
         }
-
+ 
         // Manejar casos donde la animación podría detenerse
         carousel.addEventListener('animationend', resetCarousel);
         
@@ -43,12 +43,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetCarousel();
             }
         });
-
+ 
         // Reiniciar el carrusel si hay algún error
         window.addEventListener('error', (e) => {
             if (e.target === carousel) {
                 resetCarousel();
             }
         });
+ 
+        // Observar cambios en el DOM que puedan afectar al carrusel
+        const observer = new MutationObserver(() => {
+            resetCarousel();
+        });
+ 
+        observer.observe(carousel, {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+ 
+        // Reiniciar carrusel cuando la ventana cambie de tamaño
+        window.addEventListener('resize', () => {
+            resetCarousel();
+        });
+ 
+        // Iniciar la animación
+        resetCarousel();
     }
-});
+ });

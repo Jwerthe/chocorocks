@@ -184,18 +184,20 @@ a  img {
   
 .carousel {
     display: flex;
-    animation: scroll 40s linear infinite;
+    gap: 1em; /* Espacio consistente entre productos */
+    animation: carousel 7s linear infinite;
 }
 
-@keyframes scroll {
-    0% {
+@keyframes carousel {
+    from {
         transform: translateX(0);
     }
-    100% {
-        transform: translateX(-50%); 
+    to {
+        transform: translateX(calc(-100% / 2));
     }
 }
 
+/* Para pausar en hover */
 .carousel:hover {
     animation-play-state: paused;
 }
