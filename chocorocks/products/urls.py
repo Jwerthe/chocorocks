@@ -20,4 +20,7 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
 
     path('api/products/', views.product_list_api, name='product_list_api'),
+
+    path('comment/add/', views.add_comment, name='add_comment'),
+    path('comment/<int:comment_id>/edit/', views.edit_comment, name='edit_comment'),
 ]

@@ -6,27 +6,52 @@
 <div class="content-us-1">
     <div class="text-info">
         <h3>
-            CHOCOROCKS es un snack crocante a base de chocolate que  mezcla los sabores dulces de la fruta,  los crocantes del cereal y lo  suave del chocolate. Para su elaboración se usa cacao fino de aroma  100% ecuatoriano, dando realce a este producto ancestral del país.   
-        </h3>
-        <h3>
-            Es un snack diferente, crocante que brinda una sensación crujiente  realzando los sabores propios del Ecuador. Es hecho artesanalmente  y su forma no es definida se presenta  a de manera irregular bajo la técnica de rocas suizas por eso su nombre “choco rocks” ya que se asemeja a pequeñas piedritas.
+            CHOCOROCKS es un snack diferente, crocante, que brinda una sensación crujiente  realzando los sabores propios del Ecuador. Es hecho artesanalmente  y su forma no es definida se presenta  a de manera irregular bajo la técnica de rocas suizas por eso su nombre “choco rocks” ya que se asemeja a pequeñas piedritas.
         </h3>
         <h3>
             En la formula se han incluido cereales: amaranto, maíz, arroz  crocante para darle crocancia y sobe todo fibra, le permite tener su  forma y sabor característico. Todos los sabores tienen fruta  deshidratada o liofilizada para incorporar el toque dulce ya que no  se añade azúcar a la mezcla. Actualmente tenemos 4 sabores cada  uno atiende a un tipo de consumidor.
         </h3>
     </div>
+    <div class="materials-info"> 
+    
+    </div>
 </div>
 {% endblock content_1 %}
 
 {% block content_2 %}
+
 <div class="content-us-2">
-    <div class="posts-us">
-        <div class="post">
+    <div class="us-mission">
+        <h2>Misión</h2>
+        <p>Entregar una experiencia de sabor en cada bocado, utilizando el cacao fino de aroma ecuatoriano fomentando un consumo consciente y saludable, ofreciendo chocolates elaborados con ingredientes naturales y locales libres de químicos.
+            <br><br> Nos esforzamos por llevar la riqueza del cacao ecuatoriano al mundo, transformando la forma en que se disfruta este excelente producto nacional, siempre comprometidos con la calidad y la sostenibilidad.
+        </p>
+    </div>
+    <div class="us-vision">
+        <h2>Visión</h2>
+        <p>Convertirnos en una marca de chocolates reconocida internacionalmente, llevando la riqueza del cacao ecuatoriano a los mercados globales. En el mediano plazo, aspiramos a exportar nuestros productos a EEUU introduciendo nuestros productos en cadenas locales especializadas.
+            <br><br>Nuestra visión es promocionar al Ecuador a través de nuestros sabores siendo un sinónimo de calidad, innovación y autenticidad, compartiendo el sabor único de nuestros chocolates con consumidores de todos los continentes, mientras seguimos empoderando a las comunidades locales y promoviendo un consumo consciente y saludable. 
+        </p>
+    </div> 
+</div>
+
+{% endblock content_2 %}
+
+{% block content_3 %}
+
+<div class="content-index-2">
+    <div class="carousel-photos">
+        <div class="carousel-2">
             {% for post in posts %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+            <div class="post-card">
+                <a href="{% url 'products:list_post' %}#post-{{ post.id }}">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+                    <p class="post-title">{{ post.title }}</p>
+                </a>
+            </div>
             {% endfor %}
         </div>
     </div>
 </div>
 
-{% endblock content_2 %}
+{% endblock content_3 %}

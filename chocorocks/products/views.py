@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Product, Post, CartItem, Order
+from .models import Product, Post, CartItem, Order, Comment
 from products.forms import ProductForm, PostForm, CheckoutForm
 from django.urls import reverse
 from urllib.parse import quote
 from django.http import JsonResponse
+from django.contrib import messages
 
 def product_list_api(request):
     products = Product.objects.all()
@@ -66,10 +67,12 @@ def post(request, post_id):
     return HttpResponse(template.render(context, request))
 
 def list_post(request):
-    posts = Post.objects.order_by('title')
-    template = loader.get_template('list_post.html')
-    return HttpResponse(template.render({'posts': posts}, request))
-
+    posts = Post.objects.all()
+    comments = Comment.objects.all()
+    return render(request, 'list_post.html', {
+        'posts': posts,
+        'comments': comments
+    })
 #Cart
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -156,3 +159,33 @@ Total: ${total}
         form = CheckoutForm()
     
     return render(request, 'cart.html', {'form': form})
+
+#Comment
+def add_comment(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        content = request.POST.get('content')
+        
+        comment = Comment.objects.create(
+            name=name,
+            content=content
+        )
+        
+        messages.success(request, f'Comentario añadido. IMPORTANTE: Guarda este código si quieres editar tu comentario más tarde: {comment.edit_code}')
+        return redirect('products:list_post')  # o la URL donde esté tu sección de comentarios
+
+def edit_comment(request, comment_id):
+    if request.method == 'POST':
+        edit_code = request.POST.get('edit_code')
+        new_content = request.POST.get('content')
+        
+        try:
+            comment = Comment.objects.get(id=comment_id, edit_code=edit_code)
+            comment.content = new_content
+            comment.is_edited = True
+            comment.save()
+            messages.success(request, 'Comentario actualizado correctamente')
+        except Comment.DoesNotExist:
+            messages.error(request, 'Código de edición inválido')
+            
+        return redirect('products:list_post')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Post, ProductSize
+from .models import Product, Post, ProductSize, Comment
 
 class ProductSizeInline(admin.TabularInline):
     model = Product.sizes.through
@@ -17,3 +17,9 @@ class ProductSizeAdmin(admin.ModelAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at', 'is_edited')
+    list_filter = ('created_at', 'is_edited')
+    search_fields = ('name', 'content')

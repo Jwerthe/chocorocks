@@ -19,10 +19,11 @@
     <!-- header -->
     <header>
       <div class="top-menu">
-        <a href="/">Inicio</a>
-        <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
-        <a href="{% url "products:list_product" %}">Productos</a>
-        <a href="#" id="buyButton">Comprar</a>
+        <a href="/">INICIO</a>
+        <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
+        <a href="{% url "products:list_product" %}">PRODUCTOS</a>
+        <a href="{% url "products:list_post" %}">NOVEDADES</a>
+        <a href="#" id="buyButton">COMPRAR</a>
       </div>
       <div>
         <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
@@ -39,22 +40,24 @@
     <div class="content-divider-2">
       <h5 class="divider-2">SNACK DE CHOCOLATE CON FRUTAS Y CEREALES</h5>
     </div>
+    {% block content_3 %}{% endblock content_3 %}
     <footer>
       <div>
         <div class="bottom-menu">
           <h2>CHOCOROCKS</h2>
           <div>
-            <a href="{% url "products:about_us" %}">Sobre Nosotros</a>
-            <a href="{% url "products:list_product" %}">Productos</a>
-            <a href="#" id="buyButton">Comprar</a>
+            <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
+            <a href="{% url "products:list_product" %}">PRODUCTOS</a>
+            <a href="{% url "products:list_post" %}">NOVEDADES</a>
+            <a href="#" id="buyButton">COMPRAR</a>
           </div>
         </div>
         <div class="contacts">
           <div>
-            <a href="https://www.facebook.com/chocorocksec">Facebook <img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
-            <a href="https://www.instagram.com/chocorocksec/">Instagram <img class="img-icon" src="{% static 'products/images/iicon.PNG' %}" alt="ig" /></a>
-            <a href="#">WhatsApp <img class="img-icon" src="{% static 'products/images/wicon.PNG' %}" alt="wsp" /></a>
-            <a>@: info.chocorock@gmail.com <img class="img-icon" src="{% static 'products/images/eicon.PNG' %}" alt="email" /></a>
+            <a href="https://www.facebook.com/chocorocksec">FACEBOOK <img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
+            <a href="https://www.instagram.com/chocorocksec/">INSTAGRAM <img class="img-icon" src="{% static 'products/images/iicon.PNG' %}" alt="ig" /></a>
+            <a href="#">WHATSAPP <img class="img-icon" src="{% static 'products/images/wicon.PNG' %}" alt="wsp" /></a>
+            <a>info.chocorock@gmail.com <img class="img-icon" src="{% static 'products/images/eicon.PNG' %}" alt="email" /></a>
           </div>
           <div>
             <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" />

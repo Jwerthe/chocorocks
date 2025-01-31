@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Desc-Posts{% endblock title %}
+{% block content_1 %}
+
+<div class="post-description">
+    <div class="post-img">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+        <div class="post-desc">
+            <h2>{{post.title}}</h2>
+            <p> {{post.description}} </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+
+
+{% endblock content_2 %}

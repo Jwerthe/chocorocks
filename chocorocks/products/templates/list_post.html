@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Posts{% endblock title %}
+{% block content_1 %}
+
+<div class="post-list">
+    {% for post in posts %}
+    <div class="post" id="post-{{ post.id }}">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+        <span class="post-date">{{ post.date|date:"d M Y" }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content_1 %}
+
+{% block content_2 %}
+
+<div class="comments-section">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+            {% if 'código de edición' in message.message %}
+                <button onclick="copyToClipboard('{{ message.message|slice:"message.message.find('es: ')+4:" }}')" class="copy-button">
+                    Copiar código
+                </button>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h2>Comentarios</h2>
+    
+    <!-- Formulario para nuevo comentario -->
+    <div class="comment-form">
+        <h3>Añadir comentario</h3>
+        <form method="POST" action="{% url 'products:add_comment' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Comentario:</label>
+                <textarea id="content" name="content" required></textarea>
+            </div>
+            <button type="submit">Comentar</button>
+        </form>
+    </div>
+
+    <!-- Lista de comentarios -->
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="comment" id="comment-{{ comment.id }}">
+            <div class="comment-header">
+                <span class="comment-author">{{ comment.name }}</span>
+                <span class="comment-date">{{ comment.created_at|date:"d M Y H:i" }}</span>
+                {% if comment.is_edited %}
+                    <span class="edited-mark">(editado)</span>
+                {% endif %}
+            </div>
+            <div class="comment-content">
+                {{ comment.content }}
+            </div>
+            <button class="edit-button" onclick="showEditForm('{{ comment.id }}')">Editar</button>
+            
+            <!-- Formulario de edición (oculto por defecto) -->
+            <div class="edit-form" id="edit-form-{{ comment.id }}" style="display: none;">
+                <form method="POST" action="{% url 'products:edit_comment' comment.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="edit_code" placeholder="Ingresa tu código de edición" required>
+                    <textarea name="content" required>{{ comment.content }}</textarea>
+                    <button type="submit">Guardar cambios</button>
+                    <button type="button" onclick="hideEditForm('{{ comment.id }}')">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- JavaScript para manejar la edición -->
+<script>
+    function showEditForm(commentId) {
+        document.getElementById(`edit-form-${commentId}`).style.display = 'block';
+    }
+    
+    function hideEditForm(commentId) {
+        document.getElementById(`edit-form-${commentId}`).style.display = 'none';
+    }
+</script>
+
+<script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Código copiado al portapapeles');
+        });
+    }
+</script>
+
+{% endblock content_2 %}
