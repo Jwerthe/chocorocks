@@ -44,13 +44,23 @@ def buy(request):
     return render(request, 'base.html', {'products': products})
 
 #Products
+# def product(request, product_id):
+#     product = get_object_or_404(Product, pk = product_id)
+#     template = loader.get_template('display_product.html')
+#     context = {
+#         'product': product
+#     }
+#     return HttpResponse(template.render(context, request))
+
 def product(request, product_id):
-    product = get_object_or_404(Product, pk = product_id)
-    template = loader.get_template('display_product.html')
+    product = get_object_or_404(Product, pk=product_id)
+    products = Product.objects.all().exclude(id=product_id) 
+    
     context = {
-        'product': product
+        'product': product,
+        'products': products  
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'display_product.html', context)
 
 def list_product(request):
     products = Product.objects.order_by('name')

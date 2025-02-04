@@ -1,0 +1,232 @@
+
+/* list-post. post-list */
+.post-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    border-bottom: 5px solid #ddd;
+    margin-bottom: 2em;
+    background-color: #f28d30;
+    border-radius: 20px;
+}
+
+.post:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.post img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.post img:hover {
+transform: translateY(-10px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.post h3 {
+    color: #333;
+    margin: 0.5em 0;
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #feeddd;
+    text-transform: uppercase;
+}
+
+.post p {
+    color: #feeddd;
+    line-height: 1.6;
+    margin: 0.5em 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.post-date {
+    color: #feeddd9d;
+    font-size: 0.9em;
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .post-list {
+        padding: 1em;
+    }
+
+    .post {
+        padding: 1em;
+    }
+
+    .post img {
+        max-width: 100%;
+    }
+}
+
+.post {
+    scroll-margin-top: 10em; /* Ajusta este valor según tu necesidad */
+}
+
+/* Opcional: Añadir un efecto de resaltado cuando se llega al post */
+/* .post:target {
+    animation: highlight 0.5s ease;
+} */
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(255, 255, 0, 0.2);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+/* Comments-section */
+.comments-section {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1em;
+}
+
+.comment-form {
+    margin-bottom: 2em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+.comment {
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.edited-mark {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.edit-button {
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #e0e0e0;
+}
+
+.edit-form {
+    margin-top: 1em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.edit-form input,
+.edit-form textarea {
+    width: 100%;
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-form button {
+    margin-right: 0.5em;
+    padding: 0.5em 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.messages {
+    margin-bottom: 1em;
+}
+
+.alert {
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.copy-button {
+    margin-left: 1em;
+    padding: 0.3em 0.6em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: #f0f0f0;
+}

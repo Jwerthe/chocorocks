@@ -12,7 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'products/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/base.css' %}">
+    {% block extra_css %}{% endblock extra_css %}
     <script src="{% static 'products/js/modal.js' %}" defer></script>
   </head>
   <body>

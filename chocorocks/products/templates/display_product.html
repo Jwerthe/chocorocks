@@ -2,6 +2,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Desc-Productos{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'products/css/display_product.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/index.css' %}">
+{% endblock extra_css %}
+
 {% block content_1 %}
 
 <div class="product-description">
@@ -19,10 +25,24 @@
 
 {% block content_2 %}
 
-<form method="post" action="{% url 'products:add_to_cart' product.id %}">
-    {% csrf_token %}
-    <input type="number" name="quantity" value="1" min="1">
-    <button type="submit">Agregar al carrito</button>
-</form>
+<div class="content-index">
+    <h2 style="text-align:center">MÁS PRODUCTOS</h2> 
+    <div class="carousel-container">
+        <div class="carousel">
+            {% for product in products %}
+                <div class="product">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <a href="{% url 'products:product' product.id %}">Ver más</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 {% endblock content_2 %}
+
+{% block extra_js %}
+    <script src="{% static 'products/js/carousel.js' %}" defer></script>
+{% endblock %}

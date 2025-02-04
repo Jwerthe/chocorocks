@@ -2,14 +2,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}CHOCOROCKS{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'products/css/index.css' %}">
+{% endblock extra_css %}
+
 {% block content_1 %}
-<div class="content-desc">
-    <h3>CHOCOROCKS es un snack crocante a base de chocolate que 
-        mezcla los sabores dulces de la fruta, los crocantes del cereal y lo 
-        suave del chocolate. Para su elaboración se usa cacao fino de aroma 
-        100% ecuatoriano, dando realce a este producto ancestral del país.
-    </h3>    
-</div>
+
 <div class="content-index">
     {% comment %} <h2>NUESTROS PRODUCTOS</h2> {% endcomment %}
     <div class="carousel-container">
@@ -25,6 +24,15 @@
         </div>
     </div>
 </div>
+
+<div class="content-desc">
+    <h3>CHOCOROCKS es un snack crocante a base de chocolate que 
+        mezcla los sabores dulces de la fruta, los crocantes del cereal y lo 
+        suave del chocolate. Para su elaboración se usa cacao fino de aroma 
+        100% ecuatoriano, dando realce a este producto ancestral del país.
+    </h3>    
+</div>
+
 {% endblock content_1 %}
 
 {% block content_2 %}

@@ -2,6 +2,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}Posts{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'products/css/list_post.css' %}">
+{% endblock extra_css %}
+
 {% block content_1 %}
 
 <div class="post-list">
