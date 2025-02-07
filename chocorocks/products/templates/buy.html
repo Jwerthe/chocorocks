@@ -1,23 +1,132 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Buy-Productos{% endblock title %}
+{% block title %}Buy-Products{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'products/css/buy.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/index.css' %}">
+{% endblock extra_css %}
+
 {% block content_1 %}
 
-<div class="product-list">
-    {% for product in products %}
-    <div class="product">
-        <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <a href="{% url 'products:product' product.id %}">Ver más</a>    
+<div class="buy-page fade-in">
+    {% csrf_token %}
+    <!-- Sección izquierda: Selección de productos -->
+    <div class="products-section fade-in delay-1">
+        <h2>ARTÍCULO</h2>
+        
+        <!-- Selector de productos -->
+        <div class="product-selector fade-in delay-2">
+            <select id="productSelect">
+                <option value="">Seleccionar producto</option>
+                {% for product in products %}
+                <option value="{{ product.id }}" 
+                        data-name="{{ product.name }}"
+                        data-image="{{ product.image.url }}"
+                        data-sizes="{{ product.sizes }}">
+                    {{ product.name }}
+                </option>
+                {% endfor %}
+            </select>
+            
+            <div class="product-form fade-in">
+                <select id="sizeSelect">
+                    <option value="">Seleccionar tamaño</option>
+                </select>
+                <input type="number" id="quantity" value="1" min="1" class="fade-in delay-1">
+                <button id="addToCart" class="fade-in delay-3">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <!-- Lista de productos en el carrito -->
+        <div id="cartItems" class="fade-in">
+            {% for item in cart_items %}
+            <div class="cart-item" data-product-id="{{ item.id }}">
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="fade-in delay-1">
+                <div class="item-details fade-in delay-2">
+                    <h3>{{ item.name }}</h3>
+                    <p>Cantidad: {{ item.quantity }}</p>
+                    <p>Precio: ${{ item.price }}</p>
+                    <p>Subtotal: ${{ item.subtotal }}</p>
+                </div>
+                <button class="remove-item fade-in delay-1" data-id="{{ item.id }}">×</button>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
+
+    <!-- Sección derecha: Formulario de checkout -->
+    <div class="checkout-section fade-in">
+        <h2>FINALIZAR PEDIDO</h2>
+        <div id="cartTotal" class="fade-in delay-1">
+            <h3>Total: $<span>{{ total }}</span></h3>
+        </div>
+        <form id="checkoutForm" method="post" class="fade-in delay-2">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="name" id="name" placeholder="Nombre completo" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="phone" id="phone" placeholder="Número de teléfono" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="Correo electrónico" required>
+            </div>
+            <button type="submit" class="checkout-btn fade-in delay-2">Enviar pedido por WhatsApp</button>
+        </form>
+    </div>
 </div>
 
 {% endblock content_1 %}
 
 {% block content_2 %}
 
+<div class="stores-section fade-in">
+    <h2>PUNTOS DE VENTA</h2>
+    <div class="stores-grid">
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>ECO SHOP</h3>
+            <p>Centro Comercial Galeria
+                <br>Gaspar de Villaroel y Shyris
+            </p>
+            <div class="store-links fade-in delay-2">
+                <a href="#"></a>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>INTIMUNAY</h3>
+            <p><br>Ulloa N31-214 y Mariana de Jesus</p>
+            <div class="store-links fade-in delay-2">
+                <a href="#"></a>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>ECOORGANIC</h3>
+            <p>Online: ecoorganic.ec</p>
+            <div class="store-links fade-in delay-2">
+                <p href="#" style="background-color:#feeddd;
+                    color:#608521; border-radius:20px;
+                    padding:5px">0962583904</p>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+ </div> 
 
 {% endblock content_2 %}
+
+{% block extra_js %}
+    <script src="{% static 'products/js/buy.js' %}" ></script>
+{% endblock %}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Desc-Productos{% endblock title %}
+{% block title %}Desc-Products{% endblock title %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'products/css/display_product.css' %}">
@@ -10,14 +10,41 @@
 
 {% block content_1 %}
 
-<div class="product-description">
-    <div class="product-img">
-        <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
-        <div class="product-desc">
-            <h2>{{product.name}}</h2>
-            <p> {{product.complete_description}} </p>
-            <p><strong>ESTADO: </strong> {{product.get_available_display}} </p>
+<div class="product-display">
+    <div class="product-images fade-in">
+        <div class="main-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" />
         </div>
+        <div class="additional-images fade-in delay-1">
+            {% if product.image2 %}
+            <div class="additional-image">
+                <img src="{{ product.image2.url }}" alt="{{ product.name }}" />
+            </div>
+            {% endif %}
+            {% if product.image3 %}
+            <div class="additional-image">
+                <img src="{{ product.image3.url }}" alt="{{ product.name }}" />
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="product-details fade-in">
+        <h1>{{product.name}}</h1>
+        <div class="product-description fade-in delay-1">
+            {{product.complete_description}}
+        </div>
+        <div class="product-status fade-in delay-2">
+            <span class="status-label">Estado:</span>
+            <span class="status-value 
+                {% if product.available == 'Available' %}available
+                {% elif product.available == 'Not Available' %}not-available
+                {% elif product.available == 'Soon' %}soon{% endif %}">
+                {{product.get_available_display}}
+            </span>
+        </div>
+        {% if product.available == 'Available' %}
+        <a href="{% url 'products:buy' %}" class="buy-button fade-in delay-2">COMPRAR AHORA</a>
+        {% endif %}
     </div>
 </div>
 
@@ -25,9 +52,11 @@
 
 {% block content_2 %}
 
-<div class="content-index">
-    <h2 style="text-align:center">MÁS PRODUCTOS</h2> 
-    <div class="carousel-container">
+<div class="content-index fade-in">
+    <h2 style="text-align:center;
+        font-size:2.5em; font-weight:bolder;
+        color:#F98E2B; ">MÁS PRODUCTOS</h2> 
+    <div class="carousel-container fade-in delay-1">
         <div class="carousel">
             {% for product in products %}
                 <div class="product">
@@ -45,4 +74,5 @@
 
 {% block extra_js %}
     <script src="{% static 'products/js/carousel.js' %}" defer></script>
+    <script src="{% static 'products/js/product-gallery.js' %}" defer></script>
 {% endblock %}

@@ -13,8 +13,10 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'products/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'products/css/global.css' %}">
     {% block extra_css %}{% endblock extra_css %}
     <script src="{% static 'products/js/modal.js' %}" defer></script>
+    <script src="{% static 'products/js/scroll-animations.js' %}" defer></script>
   </head>
   <body>
     <!-- header -->
@@ -24,7 +26,7 @@
         <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
         <a href="{% url "products:list_product" %}">PRODUCTOS</a>
         <a href="{% url "products:list_post" %}">NOVEDADES</a>
-        <a href="#" id="buyButton">COMPRAR</a>
+        <a href="{% url 'products:buy' %}">COMPRAR</a>
       </div>
       <div>
         <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
@@ -50,7 +52,7 @@
             <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
             <a href="{% url "products:list_product" %}">PRODUCTOS</a>
             <a href="{% url "products:list_post" %}">NOVEDADES</a>
-            <a href="#" id="buyButton">COMPRAR</a>
+            <a href="{% url 'products:buy' %}">COMPRAR</a>
           </div>
         </div>
         <div class="contacts">
@@ -68,7 +70,7 @@
     </footer>
 
     <!-- Modal de Compra -->
-    <div id="buyModal" class="modal">
+    {% comment %} <div id="buyModal" class="modal">
       <div class="modal-content">
           <!-- Botón de cerrar -->
           <span class="close-modal">&times;</span>
@@ -130,7 +132,7 @@
             </div>
           </div>
       </div>
-    </div>
+    </div> {% endcomment %}
     {% block extra_js %}{% endblock %}
   </body>
 </html>

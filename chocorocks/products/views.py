@@ -1,12 +1,14 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Product, Post, CartItem, Order, Comment
+from .models import Product, Post, CartItem, Order, Comment, ProductSize
 from products.forms import ProductForm, PostForm, CheckoutForm
 from django.urls import reverse
 from urllib.parse import quote
 from django.http import JsonResponse
 from django.contrib import messages
+from django.views.decorators.http import require_POST
+import json
 
 def product_list_api(request):
     products = Product.objects.all()
@@ -34,23 +36,33 @@ def about_us(request):
     template = loader.get_template('about_us.html')
     return HttpResponse(template.render({'posts': posts}, request))
 
-# def buy(request):
-#     products = Product.objects.order_by('name')
-#     template = loader.get_template('buy.html')
-#     return HttpResponse(template.render({'products': products}, request))
 
 def buy(request):
-    products = Product.objects.all()
-    return render(request, 'base.html', {'products': products})
+    products = Product.objects.all().prefetch_related('sizes')
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
 
-#Products
-# def product(request, product_id):
-#     product = get_object_or_404(Product, pk = product_id)
-#     template = loader.get_template('display_product.html')
-#     context = {
-#         'product': product
-#     }
-#     return HttpResponse(template.render(context, request))
+    for item_id, item_data in cart.items():
+        product = Product.objects.get(id=item_data['product_id'])
+        size = ProductSize.objects.get(id=item_data['size_id'])
+        subtotal = float(size.price) * item_data['quantity']
+        cart_items.append({
+            'id': item_id,
+            'name': product.name,
+            'size': size.size,
+            'price': size.price,
+            'quantity': item_data['quantity'],
+            'subtotal': subtotal,
+            'image': product.image.url if product.image else ''
+        })
+        total += subtotal
+
+    return render(request, 'buy.html', {
+        'products': products,
+        'cart_items': cart_items,
+        'total': total
+    })
 
 def product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
@@ -83,25 +95,41 @@ def list_post(request):
         'posts': posts,
         'comments': comments
     })
+
 #Cart
-def add_to_cart(request, product_id):
+
+def get_product_sizes(request, product_id):
+    try:
+        product = get_object_or_404(Product, id=product_id)
+        sizes = list(product.sizes.all().values('id', 'size', 'price'))
+        return JsonResponse({'sizes': sizes})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+@require_POST
+def add_to_cart(request):
+    data = json.loads(request.body)
+    product_id = data.get('product_id')
+    size_id = data.get('size_id')
+    quantity = int(data.get('quantity', 1))
+
     product = get_object_or_404(Product, id=product_id)
-    quantity = int(request.POST.get('quantity', 1))
-    
+    size = get_object_or_404(ProductSize, id=size_id)
+
     cart = request.session.get('cart', {})
-    
-    # Si el producto ya está en el carrito, actualizar cantidad
-    if str(product_id) in cart:
-        cart[str(product_id)]['quantity'] += quantity
+    item_id = f"{product_id}-{size_id}"
+
+    if item_id in cart:
+        cart[item_id]['quantity'] += quantity
     else:
-        cart[str(product_id)] = {
-            'quantity': quantity,
-            'name': product.name,
-            'price': str(product.price)
+        cart[item_id] = {
+            'product_id': product_id,
+            'size_id': size_id,
+            'quantity': quantity
         }
-    
+
     request.session['cart'] = cart
-    return redirect('products:cart')
+    return JsonResponse({'status': 'success'})
 
 def cart(request):
     cart = request.session.get('cart', {})
@@ -123,6 +151,48 @@ def cart(request):
         'cart_items': cart_items,
         'total': total
     })
+
+def get_cart(request):
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+
+    for item_id, item_data in cart.items():
+        product = Product.objects.get(id=item_data['product_id'])
+        size = ProductSize.objects.get(id=item_data['size_id'])
+        subtotal = float(size.price) * item_data['quantity']
+        cart_items.append({
+            'id': item_id,
+            'name': product.name,
+            'size': size.size,
+            'price': str(size.price),
+            'quantity': item_data['quantity'],
+            'subtotal': subtotal,
+            'image': product.image.url if product.image else ''
+        })
+        total += subtotal
+
+    return JsonResponse({
+        'items': cart_items,
+        'total': total
+    })
+
+@require_POST
+def clear_cart(request):
+    request.session['cart'] = {}
+    return JsonResponse({'status': 'success'})
+
+@require_POST
+def remove_from_cart(request):
+    data = json.loads(request.body)
+    item_id = data.get('item_id')
+    
+    cart = request.session.get('cart', {})
+    if item_id in cart:
+        del cart[item_id]
+        request.session['cart'] = cart
+        
+    return JsonResponse({'status': 'success'})
 
 
 #MSM

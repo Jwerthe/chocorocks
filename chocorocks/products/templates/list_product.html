@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Productos{% endblock title %}
+{% block title %}Products{% endblock title %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'products/css/list_product.css' %}">
@@ -9,19 +9,60 @@
 
 {% block content_1 %}
 
-<div class="product-list">
-    {% for product in products %}
-    <div class="product">
-        <img src="{{ product.image.url }}" alt="{{ producto.name }}" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <a href="{% url 'products:product' product.id %}">Ver más</a>    
-    </div>
-    {% endfor %}
-</div>
-
 {% endblock content_1 %}
 
 {% block content_2 %}
+
+<div class="product-list">
+    <!-- Primera fila (3 productos) -->
+    {% with first_three=products|slice:":3" %}
+        <div class="product-row row-3 fade-in">
+            {% for product in first_three %}
+                <div class="product">
+                    <div class="product-image fade-in delay-1">
+                        <img class="image-front" src="{{ product.image2.url }}" alt="{{ product.name }}"/>
+                        {% if product.image2 %}
+                            <img class="image-back" src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                        {% endif %}
+                    </div>
+                    <div class="product-info fade-in delay-2">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endwith %}
+
+    <!-- Resto de productos en filas alternadas de 2 y 3 -->
+    {% with remaining=products|slice:"3:" %}
+        {% for product in remaining %}
+            {% if forloop.counter0|divisibleby:5 %}
+                <div class="product-row row-2 fade-in">
+            {% elif forloop.counter0|divisibleby:2 %}
+                <div class="product-row row-3 fade-in">
+            {% endif %}
+            
+            <div class="product">
+                <div class="product-image fade-in delay-1">
+                    <img class="image-front" src="{{ product.image2.url }}" alt="{{ product.name }}"/>
+                    {% if product.image2 %}
+                        <img class="image-back" src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                    {% endif %}
+                </div>
+                <div class="product-info fade-in delay-2">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
+                </div>
+            </div>
+
+            {% if forloop.counter|divisibleby:2 or forloop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+</div>
 
 {% endblock content_2 %}

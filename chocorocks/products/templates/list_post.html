@@ -9,12 +9,12 @@
 
 {% block content_1 %}
 
-<div class="post-list">
+<div class="post-list fade-in">
     {% for post in posts %}
-    <div class="post" id="post-{{ post.id }}">
+    <div class="post fade-in" id="post-{{ post.id }}">
         <img src="{{ post.image.url }}" alt="{{ post.title }}" />
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.description }}</p>
+        <h3 class="fade-in delay-1">{{ post.title }}</h3>
+        <p class="fade-in delay-2">{{ post.description }}</p>
         <span class="post-date">{{ post.date|date:"d M Y" }}</span>
     </div>
     {% endfor %}
@@ -39,32 +39,33 @@
         {% endfor %}
     </div>
     {% endif %}
+    <div id="comm-h2" class="fade-in">
+        <h2>Comentarios</h2>
+    </div>
 
-    <h2>Comentarios</h2>
-    
     <!-- Formulario para nuevo comentario -->
-    <div class="comment-form">
+    <div class="comment-form fade-in">
         <h3>Añadir comentario</h3>
         <form method="POST" action="{% url 'products:add_comment' %}">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="form-group fade-in delay-1">
                 <label for="name">Nombre:</label>
                 <input type="text" id="name" name="name" required>
             </div>
-            <div class="form-group">
+            <div class="form-group fade-in delay-2">
                 <label for="content">Comentario:</label>
-                <textarea id="content" name="content" required></textarea>
+                <textarea id="content" name="content" required placeholder="Dejanos tus sugerencias..."></textarea>
             </div>
-            <button type="submit">Comentar</button>
+            <button type="submit" class="fade-in delay-2">Comentar</button>
         </form>
     </div>
 
     <!-- Lista de comentarios -->
-    <div class="comments-list">
+    <div class="comments-list fade-in">
         {% for comment in comments %}
         <div class="comment" id="comment-{{ comment.id }}">
             <div class="comment-header">
-                <span class="comment-author">{{ comment.name }}</span>
+                <span class="comment-author fade-in delay-1">{{ comment.name }}</span>
                 <span class="comment-date">{{ comment.created_at|date:"d M Y H:i" }}</span>
                 {% if comment.is_edited %}
                     <span class="edited-mark">(editado)</span>
@@ -73,7 +74,7 @@
             <div class="comment-content">
                 {{ comment.content }}
             </div>
-            <button class="edit-button" onclick="showEditForm('{{ comment.id }}')">Editar</button>
+            <button class="edit-button fade-in delay-2" onclick="showEditForm('{{ comment.id }}')">Editar</button>
             
             <!-- Formulario de edición (oculto por defecto) -->
             <div class="edit-form" id="edit-form-{{ comment.id }}" style="display: none;">

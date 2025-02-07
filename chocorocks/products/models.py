@@ -19,6 +19,8 @@ class Product(models.Model):
     description = models.TextField()
     complete_description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='products/images', blank=True, null=True)
+    image2 = models.ImageField(upload_to='products/images', blank=True, null=True)
+    image3 = models.ImageField(upload_to='products/images', blank=True, null=True)
     sizes = models.ManyToManyField(ProductSize)
     PRODUCT_AVAILABLE = (
         ('Available', 'Disponible'),

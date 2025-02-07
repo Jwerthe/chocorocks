@@ -8,9 +8,7 @@
 {% endblock extra_css %}
 
 {% block content_1 %}
-
-<div class="content-index">
-    {% comment %} <h2>NUESTROS PRODUCTOS</h2> {% endcomment %}
+<div class="content-index fade-in">
     <div class="carousel-container">
         <div class="carousel">
             {% for product in products %}
@@ -25,32 +23,105 @@
     </div>
 </div>
 
-<div class="content-desc">
+<div class="content-desc fade-in">
     <h3>CHOCOROCKS es un snack crocante a base de chocolate que 
         mezcla los sabores dulces de la fruta, los crocantes del cereal y lo 
         suave del chocolate. Para su elaboración se usa cacao fino de aroma 
         100% ecuatoriano, dando realce a este producto ancestral del país.
-    </h3>    
+    </h3>
 </div>
 
+<div class="image-divider fade-in">
+    <img src="{% static 'products/images/CHOCOROCKS-16.jpg' %}" alt="Logo" class="fade-in delay-1"/>
+    <img src="{% static 'products/images/CHOCOROCKS-4.jpg' %}" alt="Logo" class="fade-in delay-2"/>
+    <img src="{% static 'products/images/CHOCOROCKS-15.jpg' %}" alt="Logo" class="fade-in delay-3"/>
+</div>
+
+<div class="content-desc2">
+    <div class="info-column1 fade-in">
+        <h3>Nuestro snack CHOCOROCKS es una propuesta nueva para consumir chocolate de calidad.
+            Combina ingredientes crocantes, frutas y distintos porcentajes de cacao para así brindar una experiencia de sabor irresistible.
+        </h3>
+    </div>
+    <div class="image-column fade-in delay-1">
+        <div class="product-image">
+            <img class="image-front" src="{% static 'products/images/CHOCOROCKS-1.jpg' %}" alt="img"/>
+            <img class="image-back" src="{% static 'products/images/CHOCOROCKS-6.jpg' %}" alt="img"/>
+        </div>
+    </div>
+    <div class="info-column2 fade-in delay-2">
+        <h3>Hecho artesanalmente, sin
+            forma definida, que se presenta de manera irregular bajo la técnica de
+            rocas suizas, por eso su nombre "choco rocks", ya que se asemeja a
+            pequeñas piedritas.
+        </h3>
+    </div>
+</div>
 {% endblock content_1 %}
 
 {% block content_2 %}
-
 <div class="content-index-2">
-    <div class="carousel-photos">
-        <div class="carousel-2">
-            {% for post in posts %}
+    <div class="seagrass-container">
+        <div class="image-section">
             <div class="post-card">
-                <a href="{% url 'products:list_post' %}#post-{{ post.id }}">
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
-                    <p class="post-title">{{ post.title }}</p>
-                </a>
+                <div class="image-container fade-in">
+                    <img class="image-front1" src="{% static 'products/images/CHOCOROCKS-9.jpg' %}" alt="Primera imagen"/>
+                    <img class="image-back1" src="{% static 'products/images/CHOCOROCKS-8.jpg' %}" alt="Segunda imagen"/>
+                </div>
             </div>
-            {% endfor %}
+        </div>
+        <div class="text-section fade-in delay-1">
+            <h2>CONOCE NUESTRAS NOVEDADES</h2>
+            <p>Exploramos nuevas combinaciones de sabores, texturas y presentaciones manteniendo siempre la esencia de nuestro chocolate.
+                Descubre nuestras últimas creaciones y noticias.
+            </p>
+            <a href="{% url 'products:list_post' %}" class="learn-more-btn fade-in delay-2">➜</a>
         </div>
     </div>
 </div>
+
+<div class="stores-section fade-in">
+    <h2>PUNTOS DE VENTA</h2>
+    <div class="stores-grid">
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>ECO SHOP</h3>
+            <p>Centro Comercial Galeria
+                <br>Gaspar de Villaroel y Shyris
+            </p>
+            <div class="store-links fade-in delay-2">
+                <a href="#"></a>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>INTIMUNAY</h3>
+            <p><br>Ulloa N31-214 y Mariana de Jesus</p>
+            <div class="store-links fade-in delay-2">
+                <a href="#"></a>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+        <div class="store-card fade-in delay-1">
+            <div class="store-icon">
+                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+            </div>
+            <h3>ECOORGANIC</h3>
+            <p>Online: ecoorganic.ec</p>
+            <div class="store-links fade-in delay-2">
+                <p href="#" style="background-color:#feeddd;
+                    color:#608521; border-radius:20px;
+                    padding:5px">0962583904</p>
+                {% comment %} <a href="#" class="directions">Indicaciones</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+ </div>  
 
 {% endblock content_2 %}
 
