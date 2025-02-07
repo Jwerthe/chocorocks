@@ -32,12 +32,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
-    'whitenoise.runserver_nostatic',  # Añadido para whitenoise
+    'whitenoise.runserver_nostatic',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Añadido para whitenoise
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,6 +89,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS = [
+    'https://chocorocks-production.up.railway.app',
+]
+CORS_ALLOW_CREDENTIALS = True
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
