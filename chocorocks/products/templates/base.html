@@ -28,10 +28,10 @@
         <a href="{% url "products:list_post" %}">NOVEDADES</a>
         <a href="{% url 'products:buy' %}">COMPRAR</a>
       </div>
-      <div>
+      <div class="fade-in delay-1">
         <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
       </div>
-      <h1>ROCAS CRUJIENTES DE CHOCOLATE</h1>
+      <h1 class="fade-in delay-2">ROCAS CRUJIENTES DE CHOCOLATE</h1>
     </header>
     {% block content_1 %}{% endblock content_1 %}
 
@@ -47,24 +47,27 @@
     <footer>
       <div>
         <div class="bottom-menu">
-          <h2>CHOCOROCKS</h2>
-          <div>
+          <div class="fade-in delay-1">
             <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
             <a href="{% url "products:list_product" %}">PRODUCTOS</a>
             <a href="{% url "products:list_post" %}">NOVEDADES</a>
             <a href="{% url 'products:buy' %}">COMPRAR</a>
           </div>
         </div>
+        <h2 class="fade-in delay-1">CHOCOROCKS</h2>
         <div class="contacts">
           <div>
-            <a href="https://www.facebook.com/chocorocksec">FACEBOOK <img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
-            <a href="https://www.instagram.com/chocorocksec/">INSTAGRAM <img class="img-icon" src="{% static 'products/images/iicon.PNG' %}" alt="ig" /></a>
-            <a href="#">WHATSAPP <img class="img-icon" src="{% static 'products/images/wicon.PNG' %}" alt="wsp" /></a>
-            <a>info.chocorock@gmail.com <img class="img-icon" src="{% static 'products/images/eicon.PNG' %}" alt="email" /></a>
+            <a href="https://www.facebook.com/chocorocksec" class="fade-in delay-1"><img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
+            <a href="https://www.instagram.com/chocorocksec/" class="fade-in delay-1"><img class="img-icon" src="{% static 'products/images/iicon.PNG' %}" alt="ig" /></a>
+            <a href="#" class="fade-in delay-1"><img class="img-icon" src="{% static 'products/images/wicon.PNG' %}" alt="wsp" /></a>
           </div>
-          <div>
-            <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" />
-          </div>
+        </div>
+        <div>
+          <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" class="fade-in delay-2"/>
+        </div>
+        <div class="by">
+          <h3 class="fade-in delay-2">info.chocorock@gmail.com</h3>
+          <h3><strong>FABRICADO POR</strong>: VERÓNICA CORDERO</h3>
         </div>
       </div>
     </footer>

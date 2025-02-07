@@ -60,6 +60,7 @@
 {% endblock content_1 %}
 
 {% block content_2 %}
+
 <div class="content-index-2">
     <div class="seagrass-container">
         <div class="image-section">
@@ -70,12 +71,12 @@
                 </div>
             </div>
         </div>
-        <div class="text-section fade-in delay-1">
-            <h2>CONOCE NUESTRAS NOVEDADES</h2>
-            <p>Exploramos nuevas combinaciones de sabores, texturas y presentaciones manteniendo siempre la esencia de nuestro chocolate.
+        <div class="text-section">
+            <h2 class="fade-in delay-1">CONOCE NUESTRAS NOVEDADES</h2>
+            <p class="fade-in delay-2">Exploramos nuevas combinaciones de sabores, texturas y presentaciones manteniendo siempre la esencia de nuestro chocolate.
                 Descubre nuestras últimas creaciones y noticias.
             </p>
-            <a href="{% url 'products:list_post' %}" class="learn-more-btn fade-in delay-2">➜</a>
+            <a href="{% url 'products:list_post' %}" class="learn-more-btn fade-in delay-3">➜</a>
         </div>
     </div>
 </div>

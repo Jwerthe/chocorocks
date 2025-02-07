@@ -62,58 +62,90 @@ footer {
     background-color: #3d1500;
     width: 100%;
     height: auto;
-    margin-bottom: 0;
-}
-
-footer .bottom-menu {
+    padding: 1em 0;
+    margin-top: 1em;
+ }
+ 
+ footer > div {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    color: #feeddd;
-    margin: 1em;
-    padding: 1em;
-}
-
-footer .bottom-menu a {
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+ }
+ 
+ /* Menú Principal */
+ .bottom-menu {
+    text-align: center;
+ }
+ 
+ .bottom-menu > div {
+    display: flex;
+    gap: 2em;
+ }
+ 
+ .bottom-menu a {
     text-decoration: none;
     color: #feeddd;
     font-weight: bold;
     font-size: 1.1em;
-    padding: 0.3em;  
-}
-
-footer .contacts {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 1em;
-}
-
-footer .contacts a {
-    text-decoration: none;
+    padding: 0.3em;
+ }
+ 
+ /* Email */
+ footer h3 a {
     color: #feeddd;
-    font-weight: bold;
+    text-decoration: none;
     font-size: 1.1em;
+ }
+ 
+ /* Íconos de redes sociales */
+ .contacts > div {
     display: flex;
-    flex-flow: column wrap;
-    padding-left: 1em;
-}
-
-.img-icon {
-    height: 2em;
-    width: 2em;
-}
-
-footer img{
+    gap: 2em;
+    justify-content: center;
+ }
+ 
+ .img-icon {
+    height: 2.5em;
+    width: 2.5em;
+    transition: transform 0.3s ease;
+ }
+ 
+ .contacts a:hover .img-icon {
+    transform: translateY(-3px);
+ }
+ 
+ /* Logo */
+ footer img {
     height: 100px;
     width: 200px;
-    padding-bottom: 1em;
-}
+    display: block;
+ }
+ 
+ /* Texto final */
+ footer h2, 
+ footer h3 {
+    color: #feeddd;
+    text-align: center;
+    margin: 0.5em 0;
+ }
 
-a  img {
-    height: 20px;
-    width: 250px;
-}
+ .by h3 {
+    font-weight: 500;
+ }
+ 
+ /* Responsive */
+ @media (max-width: 768px) {
+    .bottom-menu > div {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    }
+ 
+    footer {
+        padding: 2em 1em;
+    }
+ }
 
 /* divider base */
 .divider-1 {
