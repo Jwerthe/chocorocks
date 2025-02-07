@@ -1,0 +1,298 @@
+
+/* list-post. post-list */
+.post-list {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    border-bottom: 1px solid white;
+    margin-bottom: 2em;
+    border-radius: 20px;
+}
+
+
+
+.post:last-child {
+    border-bottom: 1px solid white;
+    margin-bottom: 0;
+}
+
+.post img {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.post img:hover {
+transform: translateY(-10px);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.post h3 {
+    margin: 0.5em 0;
+    font-size: 1.5em;
+    font-weight: bolder;
+    color: #F98E2B;
+    text-transform: uppercase;
+}
+
+.post p {
+    color: #7e4115;
+    line-height: 1.6;
+    margin: 0.5em 0;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.post-date {
+    color: #7e4115;
+    font-size: 0.9em;
+    margin-top: 1em;
+    font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .post-list {
+        padding: 1em;
+    }
+
+    .post {
+        padding: 1em;
+    }
+
+    .post img {
+        max-width: 100%;
+    }
+}
+
+.post {
+    scroll-margin-top: 10em; /* Ajusta este valor según tu necesidad */
+}
+
+/* Opcional: Añadir un efecto de resaltado cuando se llega al post */
+/* .post:target {
+    animation: highlight 0.5s ease;
+} */
+
+@keyframes highlight {
+    0% {
+        background-color: rgba(255, 255, 0, 0.2);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+/*--------------------------------------------------*/
+/* Comments-section */
+
+#comm-h2 {
+    color: #F98E2B;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.comments-section {
+    max-width: 800px;
+    margin: 2em auto;
+    padding: 1em;
+}
+
+.comment-form {
+    margin-bottom: 2em;
+    padding: 1em;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
+.comment-form h3 {
+    text-transform: uppercase;
+    color: #F98E2B;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.comment-form button {
+    text-transform: uppercase;
+    padding: 0.5em 3em;
+    color: #feeddd;
+    border-radius: 20px;
+    background-color: #aa0050;
+    border: 1px solid #aa0050;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.comment-form button:hover {
+    background-color: #feeddd;
+    color: #aa0050;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 500;
+    color: #7e4115;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #155724;
+    border-radius: 10px;
+    margin-left: -7px;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+/*---------------------------------------------*/
+/*comments*/
+.comment {
+    margin-bottom: 1em;
+    padding: 1em;
+    border-radius: 20px;
+    background-color: #608521;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+}
+
+.comment-author {
+    font-weight: bold;
+    font-size: large;
+    text-transform: uppercase;
+    color: #feeddd;
+}
+
+.comment-date {
+    color: #feeddd;
+    font-size: 0.9em;
+    font-weight: 300;
+}
+
+.comment-content {
+    color: #feeddd;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.edited-mark {
+    color: #feeddd;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.edit-button {
+    margin-top: 1em;
+    padding: 0.5em 1em;
+    background-color: #feeddd;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    color: #608521;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.edit-button:hover {
+    background-color: #608521;
+    color: #feeddd;
+    border: 1px solid #feeddd;
+}
+
+.edit-form {
+    margin-top: 1em;
+    padding: 1em;
+    background-color: #feeddd;
+    border-radius: 20px;
+}
+
+.edit-form input,
+.edit-form textarea {
+    width: 100%;
+    margin-bottom: 0.5em;
+    padding: 0.7em;
+    border: 1px solid #608521;
+    border-radius: 20px;
+    margin-left: -10px;
+}
+
+.edit-form button {
+    margin-right: 0.5em;
+    padding: 0.5em 1em;
+    border: 1px solid #aa0050;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #feeddd;
+    background-color: #aa0050;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.edit-form button:hover {
+    color: #aa0050;
+    background-color: #feeddd;
+}
+
+.messages {
+    margin-bottom: 1em;
+}
+
+.alert {
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.copy-button {
+    margin-left: 1em;
+    padding: 0.3em 0.6em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.copy-button:hover {
+    background-color: #f0f0f0;
+}
