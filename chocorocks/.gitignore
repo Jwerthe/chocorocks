@@ -8,7 +8,6 @@ __pycache__
 db.sqlite3
 mediafiles/
 .env
-*.sqlite3
 
 # C extensions
 *.so
@@ -161,7 +160,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-media/media
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
