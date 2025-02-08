@@ -9,3 +9,5 @@ python manage.py migrate --noinput
 
 echo "Collect Static..."
 python manage.py collectstatic --noinput --clear
+
+mkdir -p media
