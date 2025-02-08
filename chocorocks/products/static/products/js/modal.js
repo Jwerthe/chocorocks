@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
  Total: $${total.toFixed(2)}
             `;
  
-            const whatsappUrl = `https://wa.me/+593978757097?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/+593995888853?text=${encodeURIComponent(message)}`;
             
             // Limpiar carrito
             Object.keys(cartItems).forEach(key => delete cartItems[key]);

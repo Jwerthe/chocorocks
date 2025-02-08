@@ -229,7 +229,7 @@ Productos:
 Total: ${total}
 """
             # Aquí reemplaza NUMERO_ADMIN con el número real
-            whatsapp_url = f"https://wa.me/+593978757097?text={quote(message)}"
+            whatsapp_url = f"https://wa.me/+593995888853?text={quote(message)}"
             
             # Limpiar carrito
             request.session['cart'] = {}
