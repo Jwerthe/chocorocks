@@ -11,4 +11,4 @@ python manage.py collectstatic --noinput --clear
 
 echo "Creating media directory..."
 mkdir -p mediafiles
-cp -r media/* mediafiles/
+cp -r media/* mediafiles/ || true
