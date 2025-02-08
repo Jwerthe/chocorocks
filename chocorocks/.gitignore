@@ -54,10 +54,5 @@ ENV/
 *.pot
 local_settings.py
 
-# NO ignores estos archivos/directorios
-!staticfiles/
-!media/
-!db.sqlite3
-
 # Otros
 .DS_Store

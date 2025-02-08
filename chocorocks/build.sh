@@ -1,13 +1,14 @@
 #!/bin/bash
-# Build the project
 echo "Building the project..."
 python -m pip install -r requirements.txt
 
-echo "Make Migration..."
+echo "Making migrations..."
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
-echo "Collect Static..."
+echo "Collecting static files..."
 python manage.py collectstatic --noinput --clear
 
-mkdir -p media
+echo "Creating media directory..."
+mkdir -p mediafiles
+cp -r media/* mediafiles/
