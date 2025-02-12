@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
     
                 const encodedMessage = encodeURIComponent(message);
-                const phoneNumber = '593978757097';
+                const phoneNumber = '593995888853';
     
                 // Detectar el dispositivo
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (fallbackButton) {
         fallbackButton.addEventListener('click', function(e) {
             e.preventDefault();
-            const url = `https://wa.me/593978757097?text=${encodedMessage}`;
+            const url = `https://wa.me/593995888853?text=${encodedMessage}`;
             window.open(url, '_blank');
         });
     }

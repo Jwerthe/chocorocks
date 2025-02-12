@@ -1,26 +1,49 @@
 document.addEventListener('DOMContentLoaded', function() {
     const options = {
-        root: null, // usar el viewport
-        threshold: 0.1, // cuando al menos 10% del elemento es visible
+        root: null,
+        threshold: 0.2, // Aumentado de 0.1 a 0.2
         rootMargin: '0px'
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    let animationFrame;
+    let lastScrollTime = Date.now();
+    const scrollThreshold = 50; // ms entre cada actualización
+
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                // Opcional: dejar de observar después de la animación
-                // observer.unobserve(entry.target);
-            } else {
-                // Comentar la siguiente línea si quieres que la animación
-                // solo ocurra una vez
-                entry.target.classList.remove('is-visible');
+            // Cancelar cualquier frame de animación pendiente
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
             }
+
+            // Usar requestAnimationFrame para suavizar las actualizaciones
+            animationFrame = requestAnimationFrame(() => {
+                const currentTime = Date.now();
+                if (currentTime - lastScrollTime > scrollThreshold) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        // Solo remover la clase si el elemento está completamente fuera de vista
+                        if (entry.intersectionRatio < 0.1) {
+                            entry.target.classList.remove('is-visible');
+                        }
+                    }
+                    lastScrollTime = currentTime;
+                }
+            });
         });
     }, options);
 
-    // Observar todos los elementos con la clase fade-in
+    // Observar todos los elementos con las clases de animación
     document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
         observer.observe(el);
     });
+
+    // Limpiar al desmontar
+    return () => {
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+        }
+        observer.disconnect();
+    };
 });
