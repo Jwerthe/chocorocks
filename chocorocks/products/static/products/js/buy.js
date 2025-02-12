@@ -133,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
     
             try {
-                // Obtener los datos del carrito
                 const cartResponse = await fetch('/api/cart/get/');
                 const cartData = await cartResponse.json();
     
@@ -141,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const phone = document.getElementById('phone').value;
                 const email = document.getElementById('email').value;
     
-                // Crear el mensaje para WhatsApp
                 let message = `*Nuevo pedido de:* ${name}\n`;
                 message += `*Teléfono:* ${phone}\n`;
                 message += `*Email:* ${email}\n\n`;
@@ -154,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 message += `\n*Total:* $${cartData.total.toFixed(2)}`;
     
-                // Limpiar el carrito
+                // Limpiar carrito
                 await fetch('/api/cart/clear/', {
                     method: 'POST',
                     headers: {
@@ -166,35 +164,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 const encodedMessage = encodeURIComponent(message);
                 const phoneNumber = '593978757097';
     
-                // Intentar diferentes formatos de URL de WhatsApp
-                const urls = [
-                    `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`,
-                    `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
-                    `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
-                ];
+                // Detectar el dispositivo
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                const isAndroid = /Android/.test(navigator.userAgent);
     
-                // Función para intentar abrir cada URL
-                function tryOpenWhatsApp(urlIndex) {
-                    if (urlIndex >= urls.length) {
-                        alert('No se pudo abrir WhatsApp. Por favor, intente nuevamente.');
-                        return;
-                    }
-    
-                    const url = urls[urlIndex];
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.target = '_blank';
-                    link.click();
-    
-                    // Limpiar formulario y actualizar carrito después de un breve delay
-                    setTimeout(() => {
-                        checkoutForm.reset();
-                        updateCart();
-                    }, 1000);
+                let whatsappUrl;
+                if (isIOS) {
+                    // URL específica para iOS
+                    whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+                } else if (isAndroid) {
+                    // URL para Android
+                    whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+                } else {
+                    // URL para desktop
+                    whatsappUrl = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
                 }
     
-                // Empezar con la primera URL
-                tryOpenWhatsApp(0);
+                // Usar window.location.href para iOS
+                if (isIOS) {
+                    window.location.href = whatsappUrl;
+                } else {
+                    // Para otros dispositivos usar window.open
+                    window.open(whatsappUrl, '_blank');
+                }
+    
+                // Limpiar formulario y actualizar carrito
+                setTimeout(() => {
+                    checkoutForm.reset();
+                    updateCart();
+                }, 1000);
     
             } catch (error) {
                 console.error('Error processing checkout:', error);
