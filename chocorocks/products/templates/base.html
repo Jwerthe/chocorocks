@@ -17,16 +17,24 @@
     {% block extra_css %}{% endblock extra_css %}
     <script src="{% static 'products/js/modal.js' %}" defer></script>
     <script src="{% static 'products/js/scroll-animations.js' %}" defer></script>
+    <script src="{% static 'products/js/base.js' %}" defer></script>
   </head>
   <body>
     <!-- header -->
     <header>
       <div class="top-menu">
-        <a href="/">INICIO</a>
-        <a href="{% url "products:about_us" %}">SOBRE NOSOTROS</a>
-        <a href="{% url "products:list_product" %}">PRODUCTOS</a>
-        <a href="{% url "products:list_post" %}">NOVEDADES</a>
-        <a href="{% url 'products:buy' %}">COMPRAR</a>
+        <button class="hamburger" aria-label="Menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-links">
+          <a href="/">INICIO</a>
+          <a href="{% url 'products:about_us' %}">SOBRE NOSOTROS</a>
+          <a href="{% url 'products:list_product' %}">PRODUCTOS</a>
+          <a href="{% url 'products:list_post' %}">NOVEDADES</a>
+          <a href="{% url 'products:buy' %}">COMPRAR</a>
+        </nav>
       </div>
       <div class="fade-in delay-1">
         <img src="{% static 'products/images/logo.PNG' %}" alt="Logo"/>
@@ -54,7 +62,7 @@
             <a href="{% url 'products:buy' %}">COMPRAR</a>
           </div>
         </div>
-        <h2 class="fade-in delay-1">CHOCOROCKS</h2>
+        <a href="/" class="log fade-in delay-1">CHOCOROCKS</a>
         <div class="contacts">
           <div>
             <a href="https://www.facebook.com/chocorocksec" class="fade-in delay-1"><img class="img-icon" src="{% static 'products/images/ficon.PNG' %}" alt="fb" /></a>
@@ -66,8 +74,8 @@
           <img src="{% static 'products/images/logo.PNG' %}" alt="Logo" class="fade-in delay-2"/>
         </div>
         <div class="by">
-          <h3 class="fade-in delay-2">info.chocorock@gmail.com</h3>
-          <h3><strong>FABRICADO POR</strong>: VERÓNICA CORDERO</h3>
+          <h3 class="mail fade-in delay-2">info.chocorock@gmail.com</h3>
+          <h3><strong>POR</strong>: VERÓNICA CORDERO</h3>
         </div>
       </div>
     </footer>

@@ -10,6 +10,17 @@
 
 {% block content_1 %}
 
+<div class="info-buy fade-in">
+    <div class="info-buy-text fade-in">
+        <h2 class="fade-in delay-1">Pasos para comprar</h2>
+        <p class="fade-in delay-1">1. Selecciona el o los productos de tu preferencia</p>
+        <hr class="white-line"/><p class="fade-in delay-2">2. Selecciona el tamaño</p>
+        <hr class="white-line"/><p class="fade-in delay-2">3. Ingresa la cantidad de CHOCOROCKS que deseas</p>
+        <hr class="white-line"/><p class="fade-in delay-3">4. Llena tus datos para enviar el pedido por WhatsApp</p>
+        <hr class="white-line"/><p class="fade-in delay-3">5. Listo! Nos pondremos en contacto contigo</p>
+    </div>
+</div>
+
 <div class="buy-page fade-in">
     {% csrf_token %}
     <!-- Sección izquierda: Selección de productos -->
@@ -87,7 +98,7 @@
     <div class="stores-grid">
         <div class="store-card fade-in delay-1">
             <div class="store-icon">
-                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+                <img src="{% static 'products/images/location-icon.svg' %}" alt="Logo"/>
             </div>
             <h3>ECO SHOP</h3>
             <p>Centro Comercial Galeria
@@ -100,7 +111,7 @@
         </div>
         <div class="store-card fade-in delay-1">
             <div class="store-icon">
-                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+                <img src="{% static 'products/images/location-icon.svg' %}" alt="Logo"/>
             </div>
             <h3>INTIMUNAY</h3>
             <p><br>Ulloa N31-214 y Mariana de Jesus</p>
@@ -111,7 +122,7 @@
         </div>
         <div class="store-card fade-in delay-1">
             <div class="store-icon">
-                <img src="{% static 'products/images/location-icon.png' %}" alt="Logo"/>
+                <img src="{% static 'products/images/location-icon.svg' %}" alt="Logo"/>
             </div>
             <h3>ECOORGANIC</h3>
             <p>Online: ecoorganic.ec</p>

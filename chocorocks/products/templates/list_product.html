@@ -26,8 +26,12 @@
                         {% endif %}
                     </div>
                     <div class="product-info fade-in delay-2">
+                        <div class="brand-name">CHOCOROCKS</div>
                         <h3>{{ product.name }}</h3>
                         <p>{{ product.description }}</p>
+                        <div class="availability-tag {% if product.available == 'Not Available' %}sold-out{% endif %}">
+                            {{ product.get_available_display }}
+                        </div>
                         <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
                     </div>
                 </div>
@@ -52,8 +56,12 @@
                     {% endif %}
                 </div>
                 <div class="product-info fade-in delay-2">
+                    <div class="brand-name">CHOCOROCKS</div>
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
+                    <div class="availability-tag {% if product.available == 'Not Available' %}sold-out{% endif %} fade-in delay-2">
+                        {{ product.get_available_display }}
+                    </div>
                     <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
                 </div>
             </div>
