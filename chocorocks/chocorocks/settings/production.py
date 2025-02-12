@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*", ".onrender.com"]
 
 DATABASES = {
@@ -13,7 +13,7 @@ DATABASES = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'products/static'),
+    os.path.join(BASE_DIR, 'products', 'static'),
 ]
 
 MEDIA_URL = '/media/'
@@ -21,7 +21,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -31,7 +31,6 @@ STORAGES = {
         },
     },
 }
-
 FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.MemoryFileUploadHandler',
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
