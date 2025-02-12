@@ -128,47 +128,87 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCart();
 
     const checkoutForm = document.getElementById('checkoutForm');
-if (checkoutForm) {
-    checkoutForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        // Obtener los datos del carrito
-        const cartResponse = await fetch('/api/cart/get/');
-        const cartData = await cartResponse.json();
-
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
-
-        // Crear el mensaje para WhatsApp
-        let message = `*Nuevo pedido de:* ${name}\n`;
-        message += `*Teléfono:* ${phone}\n`;
-        message += `*Email:* ${email}\n\n`;
-        message += '*Productos:*\n';
-
-        cartData.items.forEach(item => {
-            message += `• ${item.quantity}x ${item.name} (${item.size}) - $${item.price} c/u\n`;
-            message += `  Subtotal: $${(item.quantity * parseFloat(item.price)).toFixed(2)}\n`;
-        });
-
-        message += `\n*Total:* $${cartData.total.toFixed(2)}`;
-
-        // Limpiar el carrito
-        await fetch('/api/cart/clear/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCsrfToken()
+    if (checkoutForm) {
+        checkoutForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+    
+            try {
+                // Obtener los datos del carrito
+                const cartResponse = await fetch('/api/cart/get/');
+                const cartData = await cartResponse.json();
+    
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+    
+                // Crear el mensaje para WhatsApp
+                let message = `*Nuevo pedido de:* ${name}\n`;
+                message += `*Teléfono:* ${phone}\n`;
+                message += `*Email:* ${email}\n\n`;
+                message += '*Productos:*\n';
+    
+                cartData.items.forEach(item => {
+                    message += `• ${item.quantity}x ${item.name} (${item.size}) - $${item.price} c/u\n`;
+                    message += `  Subtotal: $${(item.quantity * parseFloat(item.price)).toFixed(2)}\n`;
+                });
+    
+                message += `\n*Total:* $${cartData.total.toFixed(2)}`;
+    
+                // Limpiar el carrito
+                await fetch('/api/cart/clear/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken()
+                    }
+                });
+    
+                const encodedMessage = encodeURIComponent(message);
+                const phoneNumber = '593978757097';
+    
+                // Intentar diferentes formatos de URL de WhatsApp
+                const urls = [
+                    `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`,
+                    `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
+                    `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
+                ];
+    
+                // Función para intentar abrir cada URL
+                function tryOpenWhatsApp(urlIndex) {
+                    if (urlIndex >= urls.length) {
+                        alert('No se pudo abrir WhatsApp. Por favor, intente nuevamente.');
+                        return;
+                    }
+    
+                    const url = urls[urlIndex];
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.target = '_blank';
+                    link.click();
+    
+                    // Limpiar formulario y actualizar carrito después de un breve delay
+                    setTimeout(() => {
+                        checkoutForm.reset();
+                        updateCart();
+                    }, 1000);
+                }
+    
+                // Empezar con la primera URL
+                tryOpenWhatsApp(0);
+    
+            } catch (error) {
+                console.error('Error processing checkout:', error);
+                alert('Hubo un error al procesar el pedido. Por favor, intente nuevamente.');
             }
         });
+    }
 
-        // Abrir WhatsApp
-        const whatsappUrl = `https://wa.me/593978757097?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-
-        // Limpiar formulario y actualizar carrito
-        checkoutForm.reset();
-        updateCart();
-    });
-}
+    const fallbackButton = document.getElementById('fallbackWhatsApp');
+    if (fallbackButton) {
+        fallbackButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = `https://wa.me/593978757097?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        });
+    }
 });
