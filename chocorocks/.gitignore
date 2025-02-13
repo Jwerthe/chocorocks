@@ -54,14 +54,18 @@ ENV/
 *.pot
 local_settings.py
 
-# NO ignorar estos directorios y archivos
+# Directorios por defecto de media y static
+media/*
+mediafiles/*
+static/*
+staticfiles/*
+
+# EXCEPCIONES: NO ignorar estos archivos y directorios
 !media/
 !mediafiles/
 !static/
 !staticfiles/
 !db.sqlite3
-
-# NO ignorar estos archivos
 !media_backup.zip
 
 # Otros
