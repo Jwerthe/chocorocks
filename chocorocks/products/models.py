@@ -18,9 +18,9 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     complete_description = models.TextField(null=True, blank=True)
-    image = models.ImageField(upload_to='products/images', blank=True, null=True)
-    image2 = models.ImageField(upload_to='products/images', blank=True, null=True)
-    image3 = models.ImageField(upload_to='products/images', blank=True, null=True)
+    image = models.ImageField(upload_to='products/images/', blank=True, null=True)
+    image2 = models.ImageField(upload_to='products/images/', blank=True, null=True)
+    image3 = models.ImageField(upload_to='products/images/', blank=True, null=True)
     sizes = models.ManyToManyField(ProductSize)
     PRODUCT_AVAILABLE = (
         ('Available', 'Disponible'),
@@ -34,7 +34,7 @@ class Product(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='products/images', blank=True, null=True)
+    image = models.ImageField(upload_to='products/images/', blank=True, null=True)
     description = models.TextField()
     date = models.DateTimeField(default=now)
 
