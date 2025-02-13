@@ -1,5 +1,8 @@
 import os
 from pathlib import Path
+from django.conf import settings
+import logging
+logger = logging.getLogger(__name__)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -94,6 +97,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
+FILE_UPLOAD_PERMISSIONS = 0o644
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
+
+
 # Storage configuration
 STORAGES = {
     "staticfiles": {
@@ -104,6 +111,8 @@ STORAGES = {
         "OPTIONS": {
             "location": MEDIA_ROOT,
             "base_url": MEDIA_URL,
+            "file_permissions_mode": FILE_UPLOAD_PERMISSIONS,
+            "directory_permissions_mode": FILE_UPLOAD_DIRECTORY_PERMISSIONS,
         },
     },
 }
@@ -125,4 +134,55 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'products:login'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
+# Media handling middleware
+class MediaDebugMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.path.startswith('/media/'):
+            logger.info(f"Media request: {request.path}")
+            full_path = os.path.join(settings.MEDIA_ROOT, request.path.replace('/media/', ''))
+            logger.info(f"Looking for file at: {full_path}")
+            logger.info(f"File exists: {os.path.exists(full_path)}")
+            logger.info(f"MEDIA_ROOT contents: {os.listdir(settings.MEDIA_ROOT)}")
+            if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'products')):
+                logger.info(f"Products dir contents: {os.listdir(os.path.join(settings.MEDIA_ROOT, 'products'))}")
+                if os.path.exists(os.path.join(settings.MEDIA_ROOT, 'products/images')):
+                    logger.info(f"Images dir contents: {os.listdir(os.path.join(settings.MEDIA_ROOT, 'products/images'))}")
+        return self.get_response(request)
+
+MIDDLEWARE += ['django.middleware.common.CommonMiddleware', 'chocorocks.settings.MediaDebugMiddleware']
 

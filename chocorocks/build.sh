@@ -4,6 +4,7 @@ echo "Building the project..."
 python -m pip install -r requirements.txt
 
 # Create necessary directories
+echo "Creating directories..."
 mkdir -p staticfiles
 mkdir -p mediafiles/products/images
 
@@ -11,14 +12,20 @@ mkdir -p mediafiles/products/images
 echo "Contents of media_backup.zip:"
 unzip -l media_backup.zip
 
-# Extract with full paths
+# Extract media files with path conversion
+echo "Extracting media files..."
 unzip -o media_backup.zip -d mediafiles/
+find mediafiles -type f -name "*.jpg" -exec sh -c '
+    newname=$(echo "$1" | tr " " "_")
+    [ "$1" != "$newname" ] && mv "$1" "$newname"
+' sh {} \;
 
-# Debug: List mediafiles contents
-echo "Contents of mediafiles directory:"
+# Debug: Show mediafiles contents
+echo "Contents of mediafiles directory after unzip:"
 ls -R mediafiles/
 
 # Set permissions
+echo "Setting permissions..."
 chmod -R 755 mediafiles/
 find mediafiles/ -type f -exec chmod 644 {} \;
 
