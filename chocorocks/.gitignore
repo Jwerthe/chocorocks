@@ -61,5 +61,8 @@ local_settings.py
 !staticfiles/
 !db.sqlite3
 
+# NO ignorar estos archivos
+!media_backup.zip
+
 # Otros
 .DS_Store
