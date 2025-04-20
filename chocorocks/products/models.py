@@ -26,6 +26,7 @@ class Product(models.Model):
         ('Available', 'Disponible'),
         ('Not Available', 'No Disponible'),
         ('Soon', 'Proximamente'),
+        ('Special', 'Producto Especial'),
     )
     available = models.CharField(max_length=20, choices=PRODUCT_AVAILABLE, null=False)
 
@@ -72,3 +73,16 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name}'
+    
+class Store(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.TextField()
+    is_online = models.BooleanField(default=False)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    order = models.IntegerField(default=0)  # Para controlar el orden de visualización
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ['order', 'name']

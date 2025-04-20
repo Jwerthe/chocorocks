@@ -31,19 +31,25 @@
     <div class="product-details fade-in">
         <h1>{{product.name}}</h1>
         <div class="product-description fade-in delay-1">
-            {{product.complete_description}}
+            {{product.complete_description|linebreaks}}
         </div>
         <div class="product-status fade-in delay-2">
             <span class="status-label">Estado:</span>
             <span class="status-value 
                 {% if product.available == 'Available' %}available
                 {% elif product.available == 'Not Available' %}not-available
-                {% elif product.available == 'Soon' %}soon{% endif %}">
-                {{product.get_available_display}}
+                {% elif product.available == 'Soon' %}soon
+                {% elif product.available == 'Special' %}special{% endif %}">
+                {% if product.available == 'Special' %}Producto Especial{% else %}{{product.get_available_display}}{% endif %}
             </span>
         </div>
         {% if product.available == 'Available' %}
-        <a href="{% url 'products:buy' %}" class="buy-button fade-in delay-2">COMPRAR AHORA</a>
+            <a href="{% url 'products:buy' %}" class="buy-button fade-in delay-2">COMPRAR AHORA</a>
+        {% elif product.available == 'Special' %}
+            <a href="https://wa.me/+593995888853?text=Hola,%20estoy%20interesado%20en%20el%20producto%20especial%20{{product.name|urlencode}}" class="whatsapp-button fade-in delay-2" target="_blank">
+                CONSULTAR POR WHATSAPP
+            </a>
+            <p class="special-note fade-in delay-3">Este es un producto especial disponible solo por pedido. Contáctanos para más información.</p>
         {% endif %}
     </div>
 </div>

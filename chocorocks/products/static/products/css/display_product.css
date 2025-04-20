@@ -118,16 +118,25 @@
     color: #1565c0;
 }
 
-.buy-button {
+.status-value.special {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.buy-button, .whatsapp-button {
     display: inline-block;
     padding: 1rem 2rem;
-    background-color: #638c1c;
-    color: white;
     text-decoration: none;
     border-radius: 20px;
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.buy-button {
+    background-color: #638c1c;
+    color: white;
     border: 1px solid #638c1c;
 }
 
@@ -135,6 +144,29 @@
     background-color: #feeddd;
     color: #638c1c;
     transform: translateY(-2px);
+}
+
+.whatsapp-button {
+    background-color: #F98E2B;
+    color: white;
+    border: 1px solid #F98E2B;
+}
+
+.whatsapp-button:hover {
+    background-color: #feeddd;
+    color: #F98E2B;
+    transform: translateY(-2px);
+}
+
+.special-note {
+    font-size: 0.9rem;
+    color: #7e4115;
+    font-style: italic;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fff3e0;
+    border-radius: 10px;
+    border-left: 3px solid #F98E2B;
 }
 
 @media (max-width: 768px) {
@@ -162,5 +194,14 @@
 
     .product-details {
         padding-left: 0;
+    }
+    
+    .whatsapp-button, .buy-button {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .special-note {
+        font-size: 0.85rem;
     }
 }

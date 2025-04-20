@@ -8,46 +8,23 @@
 {% endblock extra_css %}
 
 {% block content_1 %}
-
+<!-- Sección para productos especiales -->
+<div class="special-products-banner fade-in">
+    <div class="special-banner-content">
+        <h2 class="fade-in delay-1">PRODUCTOS ESPECIALES</h2>
+        <p class="fade-in delay-2">Pregunta por nuestros productos especiales diseñados para eventos, regalos corporativos y ocasiones únicas.</p>
+        <a href="https://wa.me/+593995888853?text=Hola,%20estoy%20interesado%20en%20saber%20más%20sobre%20sus%20productos%20especiales" class="whatsapp-btn fade-in delay-3" target="_blank">
+            Consultar por WhatsApp
+        </a>
+    </div>
+</div>
 {% endblock content_1 %}
 
 {% block content_2 %}
 
 <div class="product-list">
-    <!-- Primera fila (3 productos) -->
-    {% with first_three=products|slice:":3" %}
-        <div class="product-row row-3 fade-in">
-            {% for product in first_three %}
-                <div class="product">
-                    <div class="product-image fade-in delay-1">
-                        <img class="image-front" src="{{ product.image2.url }}" alt="{{ product.name }}"/>
-                        {% if product.image2 %}
-                            <img class="image-back" src="{{ product.image.url }}" alt="{{ product.name }}"/>
-                        {% endif %}
-                    </div>
-                    <div class="product-info fade-in delay-2">
-                        <div class="brand-name">CHOCOROCKS</div>
-                        <h3>{{ product.name }}</h3>
-                        <p>{{ product.description }}</p>
-                        <div class="availability-tag {% if product.available == 'Not Available' %}sold-out{% endif %}">
-                            {{ product.get_available_display }}
-                        </div>
-                        <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endwith %}
-
-    <!-- Resto de productos en filas alternadas de 2 y 3 -->
-    {% with remaining=products|slice:"3:" %}
-        {% for product in remaining %}
-            {% if forloop.counter0|divisibleby:5 %}
-                <div class="product-row row-2 fade-in">
-            {% elif forloop.counter0|divisibleby:2 %}
-                <div class="product-row row-3 fade-in">
-            {% endif %}
-            
+    <div class="products-grid fade-in">
+        {% for product in products %}
             <div class="product">
                 <div class="product-image fade-in delay-1">
                     <img class="image-front" src="{{ product.image2.url }}" alt="{{ product.name }}"/>
@@ -59,18 +36,18 @@
                     <div class="brand-name">CHOCOROCKS</div>
                     <h3>{{ product.name }}</h3>
                     <p>{{ product.description }}</p>
-                    <div class="availability-tag {% if product.available == 'Not Available' %}sold-out{% endif %} fade-in delay-2">
-                        {{ product.get_available_display }}
+                    <div class="availability-tag {% if product.available == 'Not Available' %}sold-out{% elif product.available == 'Special' %}special{% endif %} fade-in delay-2">
+                        {% if product.available == 'Special' %}
+                            Producto Especial
+                        {% else %}
+                            {{ product.get_available_display }}
+                        {% endif %}
                     </div>
                     <a href="{% url 'products:product' product.id %}" class="fade-in delay-3">Ver más</a>
                 </div>
             </div>
-
-            {% if forloop.counter|divisibleby:2 or forloop.last %}
-                </div>
-            {% endif %}
         {% endfor %}
-    {% endwith %}
+    </div>
 </div>
 
 {% endblock content_2 %}

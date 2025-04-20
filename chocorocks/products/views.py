@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import Product, Post, CartItem, Order, Comment, ProductSize
+from .models import Product, Post, CartItem, Order, Comment, ProductSize, Store
 from products.forms import ProductForm, PostForm, CheckoutForm
 from django.urls import reverse
 from urllib.parse import quote
@@ -29,7 +29,8 @@ def product_list_api(request):
 def index(request):
     products = Product.objects.all()
     posts = Post.objects.all()
-    return render(request, 'index.html', {'products': products, 'posts':posts})
+    stores = Store.objects.all()
+    return render(request, 'index.html', {'products': products, 'posts':posts, 'stores': stores})
 
 def about_us(request):
     posts = Post.objects.order_by('title')
@@ -38,7 +39,9 @@ def about_us(request):
 
 
 def buy(request):
-    products = Product.objects.all().prefetch_related('sizes')
+    # Excluir productos especiales de la página de compra
+    products = Product.objects.exclude(available='Special').prefetch_related('sizes')
+    stores = Store.objects.all()
     cart = request.session.get('cart', {})
     cart_items = []
     total = 0
@@ -61,7 +64,8 @@ def buy(request):
     return render(request, 'buy.html', {
         'products': products,
         'cart_items': cart_items,
-        'total': total
+        'total': total,
+        'stores': stores
     })
 
 def product(request, product_id):
